@@ -1,0 +1,37 @@
+<Window x:Class="AdManager.Dialogs.ExpirationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Срок действия учётной записи" Width="520" SizeToContent="Height"
+        Background="{StaticResource BgBrush}"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False">
+    <StackPanel Margin="20">
+        <TextBlock Text="СРОК ДЕЙСТВИЯ УЧЁТНОЙ ЗАПИСИ" Style="{StaticResource H2}"/>
+        <TextBlock x:Name="CurrentText" Style="{StaticResource MutedText}" FontSize="11" Margin="0,4,0,0"/>
+
+        <RadioButton x:Name="NeverRadio" Content="Бессрочно (срок не ограничен)" Margin="0,16,0,0"
+                     Checked="Mode_Changed"/>
+        <RadioButton x:Name="DateRadio" Content="Действует до даты:" Margin="0,10,0,0"
+                     Checked="Mode_Changed"/>
+
+        <TextBox x:Name="DateBox" Margin="24,6,0,0" MinHeight="30"
+                 ToolTip="Формат: дд.ММ.гггг"/>
+        <TextBlock Style="{StaticResource CaptionText}" Margin="24,3,0,0"
+                   Text="Время — конец указанного дня по местному времени."/>
+
+        <WrapPanel Margin="24,8,0,0">
+            <Button Content="+30 дней" Margin="0,0,6,0" Click="Quick_Click" Tag="30"/>
+            <Button Content="+90 дней" Margin="0,0,6,0" Click="Quick_Click" Tag="90"/>
+            <Button Content="+180 дней" Margin="0,0,6,0" Click="Quick_Click" Tag="180"/>
+            <Button Content="+1 год" Click="Quick_Click" Tag="365"/>
+        </WrapPanel>
+
+        <TextBlock x:Name="ErrorText" Foreground="{StaticResource ErrBrush}" FontSize="11"
+                   Margin="0,10,0,0" TextWrapping="Wrap" Visibility="Collapsed"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+            <Button Content="Отмена" MinWidth="90" Margin="0,0,8,0" IsCancel="True"/>
+            <Button Content="Применить" MinWidth="120" Style="{StaticResource AccentButton}"
+                    IsDefault="True" Click="Ok_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

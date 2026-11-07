@@ -1,0 +1,71 @@
+<Window x:Class="AdManager.Dialogs.CreateUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Новый пользователь" Width="760" Height="700" MinWidth="620" MinHeight="480"
+        Background="{StaticResource BgBrush}"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock x:Name="HeaderText" Text="НОВАЯ УЧЁТНАЯ ЗАПИСЬ" Style="{StaticResource H2}"/>
+            <TextBlock x:Name="HintText"
+                       Text="Минимум: подразделение, CN, логин и пароль. Остальное можно заполнить позже."
+                       Style="{StaticResource MutedText}" FontSize="11" Margin="0,3,0,0"/>
+
+            <Border x:Name="CopyInfoPanel" Visibility="Collapsed" Background="{StaticResource Surface2Brush}"
+                    CornerRadius="4" Padding="8,6" Margin="0,10,0,0">
+                <StackPanel>
+                    <TextBlock x:Name="CopyInfoText" FontSize="12" TextWrapping="Wrap"/>
+                    <CheckBox x:Name="CopyGroupsCheck" Content="Скопировать членство в группах"
+                              IsChecked="True" Margin="0,7,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Grid Margin="0,12,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Подразделение" Foreground="{StaticResource MutedBrush}" FontSize="11"/>
+                <ComboBox Grid.Column="1" x:Name="OuCombo" DisplayMemberPath="Display"/>
+            </Grid>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,8,0,0">
+            <StackPanel x:Name="FieldsPanel" Margin="0,0,8,0"/>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2">
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Пароль" Foreground="{StaticResource MutedBrush}" FontSize="11" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" x:Name="PasswordBox" FontFamily="{StaticResource MonoFont}"/>
+                <Button Grid.Column="2" Content="Сгенерировать" Margin="8,0,0,0" Click="Generate_Click"/>
+            </Grid>
+
+            <WrapPanel Margin="0,10,0,0">
+                <CheckBox x:Name="EnabledCheck" Content="Учётная запись включена" IsChecked="True" Margin="0,0,18,0"/>
+                <CheckBox x:Name="MustChangeCheck" Content="Сменить пароль при входе" IsChecked="True" Margin="0,0,18,0"/>
+                <CheckBox x:Name="NeverExpiresCheck" Content="Пароль не истекает"/>
+            </WrapPanel>
+
+            <TextBlock x:Name="ErrorText" Foreground="{StaticResource ErrBrush}" FontSize="11"
+                       Margin="0,8,0,0" TextWrapping="Wrap" Visibility="Collapsed"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+                <Button Content="Отмена" MinWidth="90" Margin="0,0,8,0" IsCancel="True"/>
+                <Button Content="Создать" MinWidth="120" Style="{StaticResource AccentButton}"
+                        IsDefault="True" Click="Ok_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,60 @@
+<Window x:Class="AdManager.Dialogs.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Настройки" Width="720" Height="700" MinWidth="600" MinHeight="480"
+        Background="{StaticResource BgBrush}"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="НАСТРОЙКИ ПОДКЛЮЧЕНИЯ И АУДИТА" Style="{StaticResource H2}"/>
+            <TextBlock Text="Пустой домен и сервер — подключение к текущему домену компьютера. Демо-режим включён всегда, когда домен недоступен."
+                       Style="{StaticResource MutedText}" FontSize="11" Margin="0,3,0,0" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,12,0,0">
+            <StackPanel x:Name="Panel" Margin="0,0,8,0">
+                <Grid x:Name="FieldsHost"/>
+                <WrapPanel Margin="0,12,0,0">
+                    <CheckBox x:Name="UseDemoCheck" Content="Демо-режим (тестовые данные)" Margin="0,0,20,8"/>
+                    <CheckBox x:Name="IncludeDisabledCheck" Content="Показывать отключённые УЗ" Margin="0,0,20,8"/>
+                    <CheckBox x:Name="RecursiveCheck" Content="Обходить OU рекурсивно" Margin="0,0,20,8"/>
+                </WrapPanel>
+
+                <TextBlock Text="ПРИВИЛЕГИРОВАННЫЕ ГРУППЫ" Style="{StaticResource SectionHeader}"/>
+                <TextBlock Text="По одной группе в строке. Совпадение по имени или sAMAccountName. Членство раскрывается рекурсивно."
+                           Style="{StaticResource CaptionText}" TextWrapping="Wrap" Margin="0,0,0,6"/>
+                <TextBox x:Name="GroupsBox" Height="180" AcceptsReturn="True" TextWrapping="NoWrap"
+                         VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto"
+                         FontFamily="{StaticResource MonoFont}" FontSize="12"/>
+
+                <TextBlock Text="ПРОБЛЕМЫ ACCESS REVIEW" Style="{StaticResource SectionHeader}"/>
+                <TextBlock Text="Снимите галочки, чтобы скрыть ненужные проблемы из списка, карточек и отчётов."
+                           Style="{StaticResource CaptionText}" TextWrapping="Wrap" Margin="0,0,0,6"/>
+                <TextBlock Text="Пользователи" Style="{StaticResource CaptionText}" FontWeight="SemiBold" Margin="0,4,0,4"/>
+                <WrapPanel x:Name="UserProblemsPanel"/>
+                <TextBlock Text="Группы" Style="{StaticResource CaptionText}" FontWeight="SemiBold" Margin="0,8,0,4"/>
+                <WrapPanel x:Name="GroupProblemsPanel"/>
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                    <Button Content="Все" MinWidth="80" Margin="0,0,6,0" Click="ProblemsAll_Click"/>
+                    <Button Content="Ничего" MinWidth="80" Click="ProblemsNone_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Grid.Row="2" Margin="0,14,0,0">
+            <TextBlock x:Name="ErrorText" Foreground="{StaticResource ErrBrush}" FontSize="11"
+                       VerticalAlignment="Center" TextWrapping="Wrap" Visibility="Collapsed"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Отмена" MinWidth="90" Margin="0,0,8,0" IsCancel="True"/>
+                <Button Content="Сохранить и подключиться" MinWidth="200" Style="{StaticResource AccentButton}"
+                        IsDefault="True" Click="Ok_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,49 @@
+<Window x:Class="AdManager.Dialogs.OuPickerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models="clr-namespace:AdManager.Models"
+        Title="Выбор подразделения" Width="540" Height="560" MinWidth="420" MinHeight="360"
+        Background="{StaticResource BgBrush}"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="HeaderText" Style="{StaticResource H2}"/>
+
+        <TextBox Grid.Row="1" x:Name="FilterBox" Margin="0,12,0,8" MinHeight="30"
+                 TextChanged="Filter_TextChanged" ToolTip="Фильтр по имени OU"/>
+
+        <TreeView Grid.Row="2" x:Name="OuTree" SelectedItemChanged="OuTree_SelectedItemChanged"
+                  MouseDoubleClick="OuTree_MouseDoubleClick" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                    <Setter Property="IsExpanded" Value="True"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type models:AdOu}" ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding DisplayName}" ToolTip="{Binding DistinguishedName}" Margin="0,1"/>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+
+        <Grid Grid.Row="3" Margin="0,14,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="PathText" Style="{StaticResource MutedText}" FontSize="11"
+                       TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button Content="Отмена" MinWidth="90" Margin="0,0,8,0" IsCancel="True"/>
+                <Button x:Name="OkButton" Content="Выбрать" MinWidth="110" IsEnabled="False"
+                        Style="{StaticResource AccentButton}" IsDefault="True" Click="Ok_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
